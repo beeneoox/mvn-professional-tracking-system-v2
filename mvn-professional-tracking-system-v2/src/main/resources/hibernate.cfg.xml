@@ -10,5 +10,6 @@
     <property name="hibernate.hbm2ddl.auto">update</property>
     <mapping class="com.dev2.model.Categoria"/>
     <mapping class="com.dev2.model.Endereco"/>
+    <mapping class="com.dev2.model.Profissional"/>
   </session-factory>
 </hibernate-configuration>

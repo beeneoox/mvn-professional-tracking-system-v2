@@ -7,18 +7,19 @@ package com.dev2.model;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotBlank;
 
 /**
  *
  * @author Bruno
  */
 @Entity
-public class Profissao implements Serializable {
+public class Profissional implements Serializable {
 
     @Id
+    @GeneratedValue
     private int id;
 
     // @ManyToMany(cascade = CascadeType.ALL)
@@ -27,8 +28,8 @@ public class Profissao implements Serializable {
     @OneToOne
     private Usuario usuario;
      */
-    @NotBlank
-    @Length(min = 1, max = 200)
+
+    @Length(min = 5, max = 200)
     private String descricaoProfissional;
 
     public int getId() {

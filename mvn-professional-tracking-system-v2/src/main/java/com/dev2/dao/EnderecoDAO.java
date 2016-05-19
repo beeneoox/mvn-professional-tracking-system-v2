@@ -7,6 +7,7 @@ package com.dev2.dao;
 
 import com.dev2.model.Endereco;
 import com.dev2.util.HibernateUtil;
+import java.util.ArrayList;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -36,6 +37,16 @@ public class EnderecoDAO {
         Transaction t = sessao.beginTransaction();
         sessao.update(e);
         t.commit();
+    }
+
+    public void deletar(int id) {
+        Transaction t = sessao.beginTransaction();
+        sessao.delete(carregar(id));
+        t.commit();
+    }
+
+    public ArrayList<Endereco> listarEnderecos() {
+        return (ArrayList<Endereco>) sessao.createCriteria(Endereco.class).list();
     }
 
 }

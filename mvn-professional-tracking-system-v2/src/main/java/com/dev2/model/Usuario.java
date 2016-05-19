@@ -38,9 +38,6 @@ public class Usuario implements Serializable {
     private String senha;
 
     private boolean temPainelProfissionall = false;
-    
-    @Length(min = 8, max = 8)
-    private String CEP;
 
     @OneToOne
     private Endereco endereco;
@@ -124,14 +121,4 @@ public class Usuario implements Serializable {
         this.CPF = CPF;
     }
 
-    public String getCEP() {
-        return CEP;
-    }
-
-    public void setCEP(String CEP) {
-        this.CEP = CEP;
-    }
-
-    
-    
 }

@@ -9,6 +9,7 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
@@ -24,17 +25,18 @@ public class Endereco implements Serializable {
     @GeneratedValue
     private int id;
 
-    @NotBlank
+    @Length(min = 8, max = 8)
+    private String CEP;
+    @Length(min = 6, max = 40)
     private String logradouro;
 
-    @Length(min = 1, max = 5)
-    @Pattern(regexp = "[0-9]+")
+    @NotNull
     private int numero;
 
-    @NotBlank
+    @Length(min = 3, max = 40)
     private String bairro;
 
-    @NotBlank
+    @Length(min = 6, max = 40)
     private String cidade;
 
     @Length(min = 2, max = 2)
@@ -46,6 +48,14 @@ public class Endereco implements Serializable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getCEP() {
+        return CEP;
+    }
+
+    public void setCEP(String CEP) {
+        this.CEP = CEP;
     }
 
     public String getLogradouro() {

@@ -10,9 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotBlank;
 
 /**
  *
@@ -32,6 +30,8 @@ public class Endereco implements Serializable {
 
     @NotNull
     private int numero;
+
+    private String complemento = "";
 
     @Length(min = 3, max = 40)
     private String bairro;
@@ -72,6 +72,14 @@ public class Endereco implements Serializable {
 
     public void setNumero(int numero) {
         this.numero = numero;
+    }
+
+    public String getComplemento() {
+        return complemento;
+    }
+
+    public void setComplemento(String complemento) {
+        this.complemento = complemento.toUpperCase();
     }
 
     public String getBairro() {

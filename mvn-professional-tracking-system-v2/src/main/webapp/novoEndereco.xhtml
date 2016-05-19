@@ -9,7 +9,6 @@
 
         <ui:define name="content">
 
-
             <h:form prependId="false">
                 <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
                 <p:panelGrid columns="2" styleClass="formularios">
@@ -20,13 +19,15 @@
                     <p:outputLabel value="CEP:" for="txtCEP"/>                                           
                     <p:inputText id="txtCEP" maxlength="8" value="#{enderecoBean.endereco.CEP}"/>
 
+                    <p:outputLabel value="Nº: " for="txtNumero"/>
+                    <p:inputText id="txtNumero" maxlength="5" value="#{enderecoBean.endereco.numero}" />
 
                     <p:outputLabel value="Logradouro: " for="txtLogradouro"/>
                     <p:inputText id="txtLogradouro" maxlength="100" value="#{enderecoBean.endereco.logradouro}"/> 
 
 
-                    <p:outputLabel value="Nº: " for="txtNumero"/>
-                    <p:inputText id="txtNumero" maxlength="5" value="#{enderecoBean.endereco.numero}" />
+                    <p:outputLabel value="Complemento: " for="txtComplemento"/>
+                    <p:inputText id="txtComplemento" maxlength="20" value="#{enderecoBean.endereco.complemento}" />
 
 
                     <p:outputLabel value="Bairro: " for="txtBairro"/>
@@ -39,7 +40,6 @@
 
                     <p:outputLabel value="UF:" for="txtUF"/>
                     <p:inputText id="txtUF" maxlength="30" value="#{enderecoBean.endereco.UF}" /> 
-
 
 
                     <f:facet name="footer">
@@ -68,8 +68,6 @@
                         <p:commandButton icon="ui-icon-trash" ajax="false" action="#{enderecoBean.deletar(end.id)}"/>
                     </p:column>
                 </p:dataTable>
-
-
 
             </h:form>
         </ui:define>

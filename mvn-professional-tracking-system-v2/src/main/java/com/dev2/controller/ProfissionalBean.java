@@ -5,7 +5,9 @@
  */
 package com.dev2.controller;
 
+import com.dev2.dao.CategoriaDAO;
 import com.dev2.dao.ProfissionalDAO;
+import com.dev2.model.Categoria;
 import com.dev2.model.Profissional;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -24,13 +26,17 @@ public class ProfissionalBean implements Serializable {
 
     private Profissional profissional = new Profissional();
     private ProfissionalDAO profissionalDAO = new ProfissionalDAO();
+    private Categoria categoria = new Categoria();
+    private CategoriaDAO categoriaDAO = new CategoriaDAO();
     private int idCategoria;
 
     public String cadastrar() {
         this.profissionalDAO = new ProfissionalDAO();
+        this.categoria = categoriaDAO.carregar(idCategoria);
+        this.profissional.setCategoria(categoria);
         this.profissionalDAO.incluir(profissional);
 
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "PROFISSIONAL CADASTRADO", this.profissional.getCategoria().toString()));
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "PROFISSIONAL CADASTRADO", ""));
         this.profissional = new Profissional();
         return null;
     }
@@ -61,6 +67,22 @@ public class ProfissionalBean implements Serializable {
 
     public void setProfissionalDAO(ProfissionalDAO profissionalDAO) {
         this.profissionalDAO = profissionalDAO;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
+
+    public CategoriaDAO getCategoriaDAO() {
+        return categoriaDAO;
+    }
+
+    public void setCategoriaDAO(CategoriaDAO categoriaDAO) {
+        this.categoriaDAO = categoriaDAO;
     }
 
     public int getIdCategoria() {

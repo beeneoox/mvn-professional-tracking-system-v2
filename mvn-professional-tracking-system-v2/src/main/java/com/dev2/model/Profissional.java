@@ -9,6 +9,8 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import org.hibernate.validator.constraints.Length;
 
 /**
@@ -22,11 +24,12 @@ public class Profissional implements Serializable {
     @GeneratedValue
     private int id;
 
-    // @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToOne
+    @JoinColumn(name = "categoria_id")
     private Categoria categoria;
     /*
-    @OneToOne
-    private Usuario usuario;
+     @OneToOne
+     private Usuario usuario;
      */
 
     @Length(min = 5, max = 200)

@@ -5,17 +5,16 @@
  */
 package com.dev2.controller;
 
-import com.dev2.dao.CategoriaDAO;
 import com.dev2.dao.EnderecoDAO;
-import com.dev2.dao.ProfissaoDAO;
 import com.dev2.dao.UsuarioDAO;
-import com.dev2.model.Categoria;
 import com.dev2.model.Endereco;
-import com.dev2.model.Profissao;
 import com.dev2.model.Usuario;
 import java.io.Serializable;
+import java.util.ArrayList;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -25,48 +24,37 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 public class UsuarioBean implements Serializable {
 
-    private Usuario usuario;
-    private UsuarioDAO usuarioDAO;
-    private Endereco endereco;
-    private EnderecoDAO enderecoDAO;
-    private Profissao profissao;
-    private ProfissaoDAO profissaoDAO;
-    private Categoria categoria;
-    private CategoriaDAO categoriaDAO;
+    private Usuario usuario = new Usuario();
+    private UsuarioDAO usuarioDAO = new UsuarioDAO();
+    private Endereco endereco = new Endereco();
+    private EnderecoDAO enderecoDAO = new EnderecoDAO();
 
-    public UsuarioBean() {
-        /*this.usuario = new Usuario();
-        this.usuarioDAO = new UsuarioDAO();
-        this.endereco = new Endereco();
-        this.enderecoDAO = new EnderecoDAO();
-        this.profissao = new Profissao();
-        this.profissaoDAO = new ProfissaoDAO();
-        this.categoria = new Categoria();
-        this.categoriaDAO = new CategoriaDAO();*/
-    }
+    public String cadastrar() {
 
-    public void cadastrarUsuario() {
+        /*this.enderecoDAO = new EderecoDAO();
+         this.endereco = enderecoDAO.carregar(idCategoria);
+         this.profissional.setCategoria(categoria);
+         this.profissionalDAO.incluir(profissional);*/
         this.enderecoDAO = new EnderecoDAO();
         this.enderecoDAO.incluir(endereco);
         this.usuario.setEndereco(enderecoDAO.carregar(this.endereco.getId()));
-        this.usuarioDAO.cadastrar(this.usuario);
-
-        /*public String incluir() {
-        this.enderecoDAO = new EnderecoDAO();
-        this.enderecoDAO.incluir(endereco);
-        this.cliente.setEndereco(enderecoDAO.carregar(this.endereco.getId()));
-        clienteDAO.incluir(cliente);
-        FacesContext contexto = FacesContext.getCurrentInstance();
-        contexto.addMessage(null, new FacesMessage("Cliente Cadastrado!", ""));
-        this.cliente = new Cliente();
+        usuarioDAO.cadastrar(usuario);
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "USUARIO CADASTRADO", ""));
+        this.usuario = new Usuario();
         this.endereco = new Endereco();
-        listaClientes = clienteDAO.listar();
-        return "index?faces-redirect=true";
-    }*/
+        return null;
     }
 
-    public boolean renderedPainelProfissional() {
-        return this.usuario.isTemPainelProfissionall();
+    public String deletar(int id) {
+        this.usuarioDAO.deletar(id);
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "USUARIO EXCLUIDO", ""));
+        getListaUsuarios();
+        return null;
+    }
+
+    public ArrayList<Usuario> getListaUsuarios() {
+        this.usuarioDAO = new UsuarioDAO();
+        return usuarioDAO.listarUsuarios();
     }
 
     public Usuario getUsuario() {
@@ -99,38 +87,6 @@ public class UsuarioBean implements Serializable {
 
     public void setEnderecoDAO(EnderecoDAO enderecoDAO) {
         this.enderecoDAO = enderecoDAO;
-    }
-
-    public Profissao getProfissao() {
-        return profissao;
-    }
-
-    public void setProfissao(Profissao profissao) {
-        this.profissao = profissao;
-    }
-
-    public ProfissaoDAO getProfissaoDAO() {
-        return profissaoDAO;
-    }
-
-    public void setProfissaoDAO(ProfissaoDAO profissaoDAO) {
-        this.profissaoDAO = profissaoDAO;
-    }
-
-    public Categoria getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
-    }
-
-    public CategoriaDAO getCategoriaDAO() {
-        return categoriaDAO;
-    }
-
-    public void setCategoriaDAO(CategoriaDAO categoriaDAO) {
-        this.categoriaDAO = categoriaDAO;
     }
 
 }

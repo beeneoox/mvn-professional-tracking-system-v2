@@ -10,5 +10,6 @@
     <mapping class="com.dev2.model.Categoria"/>
     <mapping class="com.dev2.model.Endereco"/>
     <mapping class="com.dev2.model.Profissional"/>
+    <mapping class="com.dev2.model.Usuario"/>
   </session-factory>
 </hibernate-configuration>

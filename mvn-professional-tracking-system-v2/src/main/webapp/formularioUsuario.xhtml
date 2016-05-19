@@ -33,7 +33,7 @@
                     <p:message for="txtCPF"/>
 
                     <p:outputLabel value="CEP:" for="txtCEP"/>                                           
-                    <p:inputText id="txtCEP" maxlength="8" value="#{usuarioBean.usuario.CEP}"/>
+                    <p:inputText id="txtCEP" maxlength="8" value="#{usuarioBean.endereco.CEP}"/>
                     <p:message for="txtCEP"/>
 
                     <p:outputLabel value="Logradouro: " for="txtLogradouro"/>
@@ -43,6 +43,10 @@
                     <p:outputLabel value="Nº: " for="txtNumero"/>
                     <p:inputText id="txtNumero" maxlength="5" value="#{usuarioBean.endereco.numero}" />
                     <p:message for="txtNumero"/>
+                    
+                    <p:outputLabel value="Complemento: " for="txtComplemento"/>
+                    <p:inputText id="txtComplemento" maxlength="20" value="#{usuarioBean.endereco.complemento}" />
+                    <p:message for="txtComplemento"/>
 
                     <p:outputLabel value="Bairro: " for="txtBairro"/>
                     <p:inputText id="txtBairro" maxlength="30" value="#{usuarioBean.endereco.bairro}" />
@@ -64,7 +68,7 @@
 
                     <f:facet name="footer">
                         <h:panelGroup>
-                            <p:commandButton ajax="false" value="Cadastrar"  action="#{usuarioBean.cadastrarUsuario()}" style="width: 49%"  />
+                            <p:commandButton ajax="false" value="Cadastrar"  action="#{usuarioBean.cadastrar()}" style="width: 49%"  />
                         </h:panelGroup>
                         <h:messages infoClass="certo" errorClass="erro"/>
                     </f:facet>

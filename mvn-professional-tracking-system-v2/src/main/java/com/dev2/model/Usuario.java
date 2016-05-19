@@ -32,18 +32,16 @@ public class Usuario implements Serializable {
     @Email
     private String email;
 
-    private String SALT;
-
     @Length(min = 6)
     private String senha;
 
-    private boolean temPainelProfissionall = false;
+    private boolean profissional = false;
 
     @OneToOne
     private Endereco endereco;
 
     @Pattern(regexp = "[0-9]+")
-    @Length(min = 10, max = 15)
+    @Length(min = 8, max = 15)
     private String telefone;
 
     @CPF
@@ -73,14 +71,6 @@ public class Usuario implements Serializable {
         this.email = email;
     }
 
-    public String getSALT() {
-        return SALT;
-    }
-
-    public void setSALT(String SALT) {
-        this.SALT = SALT;
-    }
-
     public String getSenha() {
         return senha;
     }
@@ -89,12 +79,12 @@ public class Usuario implements Serializable {
         this.senha = senha;
     }
 
-    public boolean isTemPainelProfissionall() {
-        return temPainelProfissionall;
+    public boolean isProfissional() {
+        return profissional;
     }
 
-    public void setTemPainelProfissionall(boolean temPainelProfissionall) {
-        this.temPainelProfissionall = temPainelProfissionall;
+    public void setProfissional(boolean profissional) {
+        this.profissional = profissional;
     }
 
     public Endereco getEndereco() {

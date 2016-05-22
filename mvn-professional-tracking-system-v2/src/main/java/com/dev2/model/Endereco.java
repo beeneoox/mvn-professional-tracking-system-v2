@@ -9,6 +9,7 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 
@@ -22,6 +23,9 @@ public class Endereco implements Serializable {
     @Id
     @GeneratedValue
     private int id;
+
+    @OneToOne
+    private Usuario usuario;
 
     @Length(min = 8, max = 8)
     private String CEP;
@@ -104,6 +108,14 @@ public class Endereco implements Serializable {
 
     public void setUF(String UF) {
         this.UF = UF;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
 }

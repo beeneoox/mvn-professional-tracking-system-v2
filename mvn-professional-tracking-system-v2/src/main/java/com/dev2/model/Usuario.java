@@ -35,17 +35,20 @@ public class Usuario implements Serializable {
     @Length(min = 6)
     private String senha;
 
-    private boolean profissional = false;
+    private boolean administrador = false;
 
-    @OneToOne
+    @OneToOne(mappedBy = "usuario")
     private Endereco endereco;
 
-    @Pattern(regexp = "[0-9]+")
+    //@Pattern(regexp = "[0-9]+")
     @Length(min = 8, max = 15)
     private String telefone;
 
     @CPF
     private String CPF;
+
+    @OneToOne(mappedBy = "usuario")
+    private Profissional profissional;
 
     public int getId() {
         return id;
@@ -79,12 +82,12 @@ public class Usuario implements Serializable {
         this.senha = senha;
     }
 
-    public boolean isProfissional() {
-        return profissional;
+    public boolean isAdministrador() {
+        return administrador;
     }
 
-    public void setProfissional(boolean profissional) {
-        this.profissional = profissional;
+    public void setAdministrador(boolean administrador) {
+        this.administrador = administrador;
     }
 
     public Endereco getEndereco() {
@@ -109,6 +112,14 @@ public class Usuario implements Serializable {
 
     public void setCPF(String CPF) {
         this.CPF = CPF;
+    }
+
+    public Profissional getProfissional() {
+        return profissional;
+    }
+
+    public void setProfissional(Profissional profissional) {
+        this.profissional = profissional;
     }
 
 }

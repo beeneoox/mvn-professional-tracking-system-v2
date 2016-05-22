@@ -61,8 +61,17 @@
                     <p:inputText id="txtTelefone" maxlength="15" value="#{usuarioBean.usuario.telefone}"/> 
 
 
-                    <p:outputLabel value="Profissional?" for="sbcProfissional"/>
-                    <p:selectBooleanCheckbox id="sbcProfissional" value="#{usuarioBean.usuario.profissional}"/>                    
+                    <p:outputLabel value="QUERO SER UM PROFISSIONAL" for="sbcProfissional"/>
+                    <p:selectBooleanCheckbox id="sbcProfissional" value="#{usuarioBean.checkProfissional}"/>                    
+
+                    <p:outputLabel value="CATEGORIA" for="omCategoria"/>
+                    <p:selectOneListbox id="omCategoria" value="#{usuarioBean.idCategoria}" style="width:170px" >                        
+                        <f:selectItems value="#{usuarioBean.listaCategorias}" var="cat" itemValue="#{cat.id}" itemLabel="#{cat.nome}"/>
+                    </p:selectOneListbox>
+
+                    <p:outputLabel value="DESCRIÇÃO: " for="txtDescricao"/>
+                    <p:inputTextarea id="txtDescricao" rows="10" cols="20" maxlength="400" value="#{usuarioBean.profissional.descricaoProfissional}"/> 
+
 
                     <f:facet name="footer">
                         <h:panelGroup>
@@ -71,6 +80,34 @@
                         <h:messages infoClass="certo" errorClass="erro"/>
                     </f:facet>
                 </p:panelGrid>                
+
+
+            </h:form>
+
+            <h:form>
+
+                <p:dataTable value="#{usuarioBean.listaUsuarios}" var="usu" emptyMessage="NÃO HÁ USUARIOS CADASTRADOS" rows="8" 
+                             paginator="true" paginatorPosition="bottom"
+                             style="margin-top: 10px">                    
+
+                    <p:column headerText="NOME">
+                        <h:outputText value="#{usu.nome}" />
+                    </p:column>
+                    <p:column headerText="LOGRADOURO">
+                        <h:outputText value="#{usu.endereco.logradouro}" />
+                    </p:column>
+                    <p:column headerText="BAIRRO">
+                        <h:outputText value="#{usu.endereco.bairro}" />
+                    </p:column>
+                    <p:column headerText="CATEGORIA">
+                        <h:outputText value="#{usu.profissional.categoria}" />
+                    </p:column>
+
+                    <p:column headerText="Delete" width="60" >
+                        <p:commandButton icon="ui-icon-trash" ajax="false" action="#{usuarioBean.deletar(usu.id)}"/>
+                    </p:column>
+                </p:dataTable>
+
 
 
             </h:form>

@@ -5,9 +5,13 @@
  */
 package com.dev2.controller;
 
+import com.dev2.dao.CategoriaDAO;
 import com.dev2.dao.EnderecoDAO;
+import com.dev2.dao.ProfissionalDAO;
 import com.dev2.dao.UsuarioDAO;
+import com.dev2.model.Categoria;
 import com.dev2.model.Endereco;
+import com.dev2.model.Profissional;
 import com.dev2.model.Usuario;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -28,20 +32,44 @@ public class UsuarioBean implements Serializable {
     private UsuarioDAO usuarioDAO = new UsuarioDAO();
     private Endereco endereco = new Endereco();
     private EnderecoDAO enderecoDAO = new EnderecoDAO();
+    private Profissional profissional = new Profissional();
+    private ProfissionalDAO profissionalDAO = new ProfissionalDAO();
+    private Categoria categoria = new Categoria();
+    private CategoriaDAO categoriaDAO = new CategoriaDAO();
+    private boolean checkProfissional = false;
+    private int idCategoria;
 
-    public String cadastrar() {
-
-        /*this.enderecoDAO = new EderecoDAO();
-         this.endereco = enderecoDAO.carregar(idCategoria);
-         this.profissional.setCategoria(categoria);
-         this.profissionalDAO.incluir(profissional);*/
+    public String cadastrarCERTO() {
         this.enderecoDAO = new EnderecoDAO();
         this.enderecoDAO.incluir(endereco);
         this.usuario.setEndereco(enderecoDAO.carregar(this.endereco.getId()));
         usuarioDAO.cadastrar(usuario);
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "USUARIO CADASTRADO", ""));
+        if (checkProfissional) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "PROFISSIONAL CADASTRADO", ""));
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "USUARIO CADASTRADO", ""));
+        }
         this.usuario = new Usuario();
         this.endereco = new Endereco();
+        return null;
+    }
+
+    public String cadastrar() {
+        this.usuarioDAO = new UsuarioDAO();
+        this.usuarioDAO.cadastrar(usuario);
+        this.endereco.setUsuario(usuarioDAO.carregar(this.usuario.getId()));
+        this.enderecoDAO.incluir(endereco);
+        if (checkProfissional) {
+            this.profissional.setUsuario(usuarioDAO.carregar(this.usuario.getId()));
+            this.profissional.setCategoria(categoriaDAO.carregar(idCategoria));
+            this.profissionalDAO.incluir(profissional);
+        }
+        if (checkProfissional) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "PROFISSIONAL CADASTRADO", ""));
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "USUARIO CADASTRADO", ""));
+        }
+        inicializarVariaveis();
         return null;
     }
 
@@ -87,6 +115,72 @@ public class UsuarioBean implements Serializable {
 
     public void setEnderecoDAO(EnderecoDAO enderecoDAO) {
         this.enderecoDAO = enderecoDAO;
+    }
+
+    public Profissional getProfissional() {
+        return profissional;
+    }
+
+    public void setProfissional(Profissional profissional) {
+        this.profissional = profissional;
+    }
+
+    public ProfissionalDAO getProfissionalDAO() {
+        return profissionalDAO;
+    }
+
+    public void setProfissionalDAO(ProfissionalDAO profissionalDAO) {
+        this.profissionalDAO = profissionalDAO;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
+
+    public CategoriaDAO getCategoriaDAO() {
+        return categoriaDAO;
+    }
+
+    public void setCategoriaDAO(CategoriaDAO categoriaDAO) {
+        this.categoriaDAO = categoriaDAO;
+    }
+
+    public int getIdCategoria() {
+        return idCategoria;
+    }
+
+    public void setIdCategoria(int idCategoria) {
+        this.idCategoria = idCategoria;
+    }
+
+    public ArrayList<Categoria> getListaCategorias() {
+        this.categoriaDAO = new CategoriaDAO();
+        return categoriaDAO.listarCategorias();
+    }
+
+    public boolean isCheckProfissional() {
+        return checkProfissional;
+    }
+
+    public void setCheckProfissional(boolean checkProfissional) {
+        this.checkProfissional = checkProfissional;
+    }
+
+    public void inicializarVariaveis() {
+        this.usuario = new Usuario();
+        this.usuarioDAO = new UsuarioDAO();
+        this.endereco = new Endereco();
+        this.enderecoDAO = new EnderecoDAO();
+        this.profissional = new Profissional();
+        this.profissionalDAO = new ProfissionalDAO();
+        this.categoria = new Categoria();
+        this.categoriaDAO = new CategoriaDAO();
+        this.idCategoria = 0;
+        this.checkProfissional = false;
     }
 
 }

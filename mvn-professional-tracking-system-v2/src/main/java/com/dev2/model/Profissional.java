@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import org.hibernate.validator.constraints.Length;
 
 /**
@@ -27,13 +28,12 @@ public class Profissional implements Serializable {
     @ManyToOne
     @JoinColumn(name = "categoria_id")
     private Categoria categoria;
-    /*
-     @OneToOne
-     private Usuario usuario;
-     */
 
-    @Length(min = 5, max = 200)
+    //@Length(min = 5, max = 200)
     private String descricaoProfissional;
+
+    @OneToOne
+    private Usuario usuario;
 
     public int getId() {
         return id;
@@ -57,6 +57,14 @@ public class Profissional implements Serializable {
 
     public void setDescricaoProfissional(String descricaoProfissional) {
         this.descricaoProfissional = descricaoProfissional;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
 }

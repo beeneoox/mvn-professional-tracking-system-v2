@@ -5,6 +5,7 @@
  */
 package com.dev2.model;
 
+import com.dev2.util.HashUtil;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -49,6 +50,9 @@ public class Usuario implements Serializable {
 
     @OneToOne(mappedBy = "usuario")
     private Profissional profissional;
+
+    @OneToOne(mappedBy = "usuario")
+    private Seguranca seguranca;
 
     public int getId() {
         return id;
@@ -112,6 +116,14 @@ public class Usuario implements Serializable {
 
     public void setCPF(String CPF) {
         this.CPF = CPF;
+    }
+
+    public Seguranca getSeguranca() {
+        return seguranca;
+    }
+
+    public void setSeguranca(Seguranca seguranca) {
+        this.seguranca = seguranca;
     }
 
     public Profissional getProfissional() {

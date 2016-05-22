@@ -5,10 +5,12 @@
  */
 package com.dev2.model;
 
+import com.dev2.util.HashUtil;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -21,8 +23,22 @@ public class Seguranca implements Serializable {
     @GeneratedValue
     private int id;
 
+    @OneToOne
     private Usuario usuario = new Usuario();
+
     private String SALT;
+
+    public Seguranca() {
+        this.SALT = HashUtil.generateSalt();
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public Usuario getUsuario() {
         return usuario;
@@ -36,16 +52,4 @@ public class Seguranca implements Serializable {
         return SALT;
     }
 
-    public void setSALT(String SALT) {
-        this.SALT = SALT;
-    }
-
-    public String gerarSalt() {
-
-        String sha512hex = org.apache.commons.codec.digest.DigestUtils.sha512Hex("123456");
-//String sha256hex = org.apache.commons.codec.digest.DigestUtils.sha256Hex("123456");
-        System.out.println(sha512hex);
-
-        return sha512hex;
-    }
 }
